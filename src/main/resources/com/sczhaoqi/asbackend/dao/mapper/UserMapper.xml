@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sczhaoqi.asbackend.dao.mapper.UserMapper">
+    <resultMap id="userMap" type="com.sczhaoqi.asbackend.domain.User">
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="password" property="password" jdbcType="VARCHAR" />
+        <result column="username" property="username" jdbcType="VARCHAR" />
+        <result column="email" property="email" jdbcType="VARCHAR" />
+        <result column="phone_num" property="phoneNum" jdbcType="VARCHAR" />
+        <result column="enabled" property="enabled" jdbcType="BOOLEAN" />
+        <collection property="authorities" ofType="string" javaType="list">
+            <result column="authority" />
+        </collection>
+    </resultMap>
+
+    <select id="findByUsername" resultMap="userMap" parameterType="string">
+        SELECT id,
+               password,
+               username,
+               email,
+               phone_num
+        FROM as_user
+        WHERE username = #{userName}
+    </select>
+    <select id="findUserDetailsByUsername" resultMap="userMap" parameterType="string">
+        SELECT
+            users.id,
+            users.username,
+            users.email,
+            users.phone,
+            users.`password`,
+            users.enabled,
+            authorities.authority
+        FROM
+            users
+                LEFT JOIN authorities ON authorities.user_id = users.id
+        WHERE users.username = #{userName} UNION
+        SELECT
+            users.id,
+            users.username,
+            users.email,
+            users.phone,
+            users.`password`,
+            users.enabled,
+            group_authorities.authority
+        FROM
+            users
+                LEFT JOIN group_members ON group_members.user_id = users.id
+                INNER JOIN group_authorities ON group_authorities.group_id = group_members.group_id
+        WHERE	users.username = #{userName}
+    </select>
+</mapper>

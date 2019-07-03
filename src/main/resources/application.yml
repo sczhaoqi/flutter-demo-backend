@@ -1,0 +1,32 @@
+spring:
+  datasource:
+    jdbc-url:  jdbc:mysql://localhost:3306/asb?&serverTimezone=Asia/Shanghai&charset=utf8mb4&useSSL=false
+    driver-class-name:  com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+  secondaryDataSource:
+    jdbc-url:  jdbc:mysql://localhost:3306/asb?&serverTimezone=Asia/Shanghai&charset=utf8mb4&useSSL=false
+    driver-class-name:  com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+  cache:
+    jcache:
+      config: classpath:ehcache.xml
+    type: jcache
+mybatis:
+  type-aliases-package: com.sczhaoqi.asbackend.domain
+mybatis2:
+  type-aliases-package: com.sczhaoqi.asbackend.domain
+logging:
+  level:
+    root: info
+
+jwt:
+  tokenHeader: Authorization
+  tokenPrefix: Bearer
+  secret: sczhaoqi
+  expiration: PT6H
+  rememberExpiration: P30D
+  issuer: askdemo
+swagger:
+  enabled: true
