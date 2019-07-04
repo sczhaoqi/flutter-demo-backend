@@ -50,7 +50,7 @@ public class SecurityConfiguration
                 // 基于token，所以不需要session
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
-                .antMatchers("/", "/hello", "/user/login", "/user/register",
+                .antMatchers("/", "/hello", "/user/login", "/user/register","/user/avatar/**",
                         "/v2/api-docs", "/swagger-ui.html", "/webjars/**", "/swagger-resources/**")
                 .permitAll().and()
                 .authorizeRequests()

@@ -14,15 +14,27 @@ import java.util.stream.Collectors;
 public class User
 {
     Long id;
+    String avatar;
     String username;
     String password;
     String email;
     String phoneNum;
     Boolean enabled;
     List<String> authorities;
+    private String fileName;
 
     public List<SimpleGrantedAuthority> getAuthorityInfo()
     {
         return authorities.parallelStream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+    }
+
+    public String getFileName()
+    {
+        return fileName;
+    }
+
+    public void setFileName(String fileName)
+    {
+        this.fileName = fileName;
     }
 }

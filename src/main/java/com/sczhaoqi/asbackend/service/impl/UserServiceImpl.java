@@ -7,6 +7,7 @@ import com.sczhaoqi.asbackend.exception.CurrentNotSupportException;
 import com.sczhaoqi.asbackend.service.UserService;
 import com.sczhaoqi.asbackend.utils.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -29,6 +30,9 @@ public class UserServiceImpl
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Value("${user.avatar.baseUrl}")
+    private String avatarBaseUrl;
+
     @Override
     public User loadUserByUsername(String s)
             throws UsernameNotFoundException
@@ -47,6 +51,20 @@ public class UserServiceImpl
     public User updatePassword(UserDetails userDetails, String newPassword)
     {
         throw new CurrentNotSupportException();
+    }
+
+    @Override
+    public String updateAvatar(User user, String avatar,String fileName)
+    {
+        String accessUri = avatarBaseUrl + "/user/avatar/" + user.getId();
+        userMapper.updateAvatar(user.getId(), accessUri,fileName);
+        return accessUri;
+    }
+
+    @Override
+    public User findById(Long id)
+    {
+        return userMapper.findById(id);
     }
 
     @Override

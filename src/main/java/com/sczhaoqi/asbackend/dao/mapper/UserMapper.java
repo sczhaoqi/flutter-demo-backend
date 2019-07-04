@@ -12,4 +12,8 @@ public interface UserMapper
     User findByUsername(@Param("userName") String userName);
 
     User findUserDetailsByUsername(@Param("userName") String userName);
+
+    void updateAvatar(@Param("id") Long id, @Param("accessUri") String accessUri, @Param("fileName")  String fileName);
+
+    User findById(@Param("id")Long id);
 }

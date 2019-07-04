@@ -18,4 +18,8 @@ public interface UserService
             throws UsernameNotFoundException;
 
     User updatePassword(UserDetails userDetails, String newPassword);
+
+    String updateAvatar(User user,String avatar,String fileName);
+
+    User findById(Long id);
 }

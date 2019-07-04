@@ -65,8 +65,8 @@ public class Msg<T>
         return new Msg<E>(OK.code, data, msg);
     }
 
-    public static Msg fail(String msg)
+    public static <E> Msg<E> fail(String msg)
     {
-        return new Msg(FAILED.code, msg);
+        return new Msg(FAILED.code, null,msg);
     }
 }
